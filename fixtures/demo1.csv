@@ -1,6 +1,9 @@
 ;
 "Ums�tze Girokonto";"Zeitraum: 90 Tage";
 "Neuer Kontostand";"2.406,80";
+
 "Buchungstag";"Wertstellung (Valuta)";"Vorgang";"Buchungstext";"Umsatz in EUR";
 "02.05.2017";"02.05.2017";"�bertrag/�berweisung";"Empf�nger: Daniel Schmidt, Carina Heitmann Kto/IBAN: DE60200411550892963000 BLZ/BIC: COBADEHD055 Buchungstext: End-to-End-Ref.: nicht angegeben Ref. JF217118L1327255/2";"-100,00";
 "12.05.2017";"12.05.2017";"�bertrag/�berweisung";"Empf�nger: Landeshauptstadt Kiel Kto/IBAN: DE76210501701001803152 BLZ/BIC: NOLADE21KIE Buchungstext: 1057005241701 End-to-End-Ref.: nicht angegeben Ref. JF217118L1327288/2";"-48,50";
+
+"Alter Kontostand";"1.702,21";

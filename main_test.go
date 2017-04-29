@@ -14,7 +14,7 @@ func TestGetIBAN(t *testing.T) {
 	for _, tt := range ibanTests {
 		actual := getIBAN(tt.in)
 		if actual != tt.out {
-			t.Errorf("Fib(%s): expected %s, actual %s", tt.in, tt.out, actual)
+			t.Errorf("TestGetIBAN(%s): expected %s, actual %s", tt.in, tt.out, actual)
 		}
 	}
 }
@@ -29,6 +29,7 @@ func TestParseCSV(t *testing.T) {
 
 	if len(result) != 2 {
 		t.Error("Not enough items found")
+		return
 	}
 
 	for i := 0; i < 2; i++ {
