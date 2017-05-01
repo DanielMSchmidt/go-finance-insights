@@ -5,5 +5,7 @@
 "Buchungstag";"Wertstellung (Valuta)";"Vorgang";"Buchungstext";"Umsatz in EUR";
 "02.05.2017";"02.05.2017";"�bertrag/�berweisung";"Empf�nger: Daniel Schmidt, Carina Heitmann Kto/IBAN: DE60200411550892963000 BLZ/BIC: COBADEHD055 Buchungstext: End-to-End-Ref.: nicht angegeben Ref. JF217118L1327255/2";"-100,00";
 "12.05.2017";"12.05.2017";"�bertrag/�berweisung";"Empf�nger: Landeshauptstadt Kiel Kto/IBAN: DE76210501701001803152 BLZ/BIC: NOLADE21KIE Buchungstext: 1057005241701 End-to-End-Ref.: nicht angegeben Ref. JF217118L1327288/2";"-48,50";
+"25.04.2017";"25.04.2017";"Lastschrift/Belast.";"Auftraggeber: Penny Mundsburg Ce Buchungstext: 220413122168662201256008312 PENNY S AGT DANKE. 31300007 End-to-End-Ref.: 220413122168662201256008312 CORE / Mandatsref.: 5600831252821704221312 Gl�ubiger-ID: DE53ZZZ00000257229 Ref. H221711461258637/147";"-27,90";
+"24.04.2017";"24.04.2017";"Lastschrift/Belast.";"Auftraggeber: 2708 GAMESTOP Buchungstext: Kartenzahlung GAMESTOP DEUTSCHLAND GMBH//MEMMINGE 2017-04-22T17:32:37 KFN 2 VJ 2012 Ref. AOD17114C1616301/99884";"-57,98";
 
 "Alter Kontostand";"1.702,21";

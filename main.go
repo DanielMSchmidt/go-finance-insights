@@ -9,9 +9,9 @@ import (
 )
 
 type transaction struct {
-	date  string
-	iban  string
-	value float64
+	date   string
+	issuer string
+	value  float64
 }
 
 func loadFile(filePath string) string {
@@ -21,6 +21,18 @@ func loadFile(filePath string) string {
 	}
 
 	return string(in)
+}
+
+func getContractee(content string) string {
+	startOffset := 14
+	start := strings.Index(content, "Auftraggeber: ")
+	end := strings.Index(content, " Buchungstext")
+
+	if start < 0 || end < 0 {
+		return ""
+	}
+
+	return content[start+startOffset : end]
 }
 
 func getIBAN(content string) string {
@@ -53,6 +65,13 @@ func transformEntry(line string) (transaction, error) {
 
 	date := parts[0][1 : len(parts[0])-1]
 	iban := getIBAN(parts[3])
+	var issuer string
+	if iban == "" {
+		issuer = getContractee(parts[3]) // lastschrift
+	} else {
+		issuer = iban
+	}
+
 	rawAmount := parts[4][1 : len(parts[4])-1]
 	amount, err := strconv.ParseFloat(strings.Replace(rawAmount, ",", ".", -1), 32)
 
@@ -60,7 +79,7 @@ func transformEntry(line string) (transaction, error) {
 		return transaction{}, fmt.Errorf("Amount is not a float")
 	}
 
-	return transaction{date, iban, amount}, nil
+	return transaction{date, issuer, amount}, nil
 }
 
 func parseCSV(content string) []transaction {
