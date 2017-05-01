@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -104,10 +105,50 @@ func parseCSV(content string) []transaction {
 	return result
 }
 
+func floatEquals(a float64, b float64) bool {
+	return math.Abs(a-b) < 0.001
+}
+
+func findEqualAmounts(entries []transaction) [][]transaction {
+	buckets := [][]transaction{}
+	itemAdded := false
+	for _, entry := range entries {
+		for bucketIndex, bucket := range buckets {
+			if floatEquals(entry.value, bucket[0].value) {
+				buckets[bucketIndex] = append(bucket, entry)
+				itemAdded = true
+			}
+		}
+		if !itemAdded {
+			list := []transaction{}
+			list = append(list, entry)
+			buckets = append(buckets, list)
+		}
+
+	}
+
+	return buckets
+}
+
+func filterMatches(entries [][]transaction) (ret [][]transaction) {
+	for _, entry := range entries {
+		if len(entry) > 1 {
+			ret = append(ret, entry)
+		}
+	}
+	return
+
+}
+
 func main() {
 	raw := loadFile("data/foo.csv")
-	transactions := parseCSV(raw)
-	for i := 0; i < len(transactions); i++ {
-		fmt.Println(transactions[i])
+	buckets := filterMatches(findEqualAmounts(parseCSV(raw)))
+	for _, bucket := range buckets {
+		fmt.Println("\n{")
+		for _, trans := range bucket {
+			fmt.Println(trans.date, trans.issuer, trans.value)
+		}
+		fmt.Println("}")
 	}
+
 }

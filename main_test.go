@@ -76,3 +76,96 @@ func TestParseCSV(t *testing.T) {
 		}
 	}
 }
+
+func TestFindEqualAmounts(t *testing.T) {
+	input := []transaction{
+		{"02.05.2017", "DE60200411550892963000", -100.00},
+		{"12.05.2017", "DE76210501701001803152", -48.50},
+		{"25.04.2017", "Penny Mundsburg Ce", -27.9},
+		{"24.04.2017", "2708 GAMESTOP", -57.98},
+		{"02.06.2017", "DE60200411550892963000", -100.00},
+		{"4.07.2017", "2708 GAMESTOP", -57.98},
+	}
+
+	output := [][]transaction{
+		{
+			{"02.05.2017", "DE60200411550892963000", -100.00},
+			{"02.06.2017", "DE60200411550892963000", -100.00},
+		},
+		{
+			{"12.05.2017", "DE76210501701001803152", -48.50},
+		}, {
+			{"25.04.2017", "Penny Mundsburg Ce", -27.9},
+		}, {
+			{"24.04.2017", "2708 GAMESTOP", -57.98},
+			{"4.07.2017", "2708 GAMESTOP", -57.98},
+		},
+	}
+
+	actual := findEqualAmounts(input)
+
+	if len(actual) != len(output) {
+		t.Error("Not enough items found")
+		return
+	}
+
+	for i := 0; i < 4; i++ {
+		a := actual[i]
+		b := output[i]
+
+		if len(a) != len(b) {
+			t.Error("Not enough items in bucket")
+			return
+		}
+
+		// only check dates in test
+		for j := 0; j < len(a); j++ {
+			aDate := a[j].date
+			bDate := b[j].date
+
+			if aDate != bDate {
+				t.Error("Dates are not the same")
+				return
+			}
+		}
+	}
+}
+
+func TestFilterMatches(t *testing.T) {
+	input := [][]transaction{
+		{
+			{"02.05.2017", "DE60200411550892963000", -100.00},
+			{"02.06.2017", "DE60200411550892963000", -100.00},
+		},
+		{
+			{"12.05.2017", "DE76210501701001803152", -48.50},
+		}, {
+			{"25.04.2017", "Penny Mundsburg Ce", -27.9},
+		}, {
+			{"24.04.2017", "2708 GAMESTOP", -57.98},
+			{"4.07.2017", "2708 GAMESTOP", -57.98},
+		},
+	}
+
+	output := [][]transaction{
+		{
+			{"02.05.2017", "DE60200411550892963000", -100.00},
+			{"02.06.2017", "DE60200411550892963000", -100.00},
+		},
+		{
+			{"24.04.2017", "2708 GAMESTOP", -57.98},
+			{"4.07.2017", "2708 GAMESTOP", -57.98},
+		},
+	}
+
+	actual := filterMatches(input)
+
+	for index, os := range output {
+		for i, a := range actual[index] {
+			if a.date != os[i].date {
+				t.Error("Dates are not the same")
+				return
+			}
+		}
+	}
+}
